@@ -44,4 +44,10 @@ public class User {
     @Column(name = "last_modified_date")
     @UpdateTimestamp
     private Date lastModifiedDate;
+
+    @Override
+    public String toString() {
+        return "user: " +  this.getUsername();
+    }
+
 }

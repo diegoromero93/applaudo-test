@@ -1,6 +1,7 @@
 package com.applaudostudios.demo.models;
 
 import com.applaudostudios.demo.enums.ItemStatusEnum;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -34,7 +35,7 @@ public class Item {
     @Column(name = "status", nullable = false)
     private String status;
 
-    @Column(name = "entered_date")
+    @Column(name = "entered_date", updatable = false)
     @CreationTimestamp
     private Date enteredDate;
 
@@ -47,7 +48,7 @@ public class Item {
     private User enteredByUser;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "last_modified_by_user", nullable = false)
+    @JoinColumn(name = "last_modified_by_user")
     private User lastModifiedByUser;
 
 

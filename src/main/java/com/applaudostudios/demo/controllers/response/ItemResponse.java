@@ -35,8 +35,8 @@ public class ItemResponse {
     private Date lastModifiedDate;
 
     @JsonProperty("entered_by_user")
-    private User enteredByUser;
+    private String enteredByUser;
 
     @JsonProperty("last_modified_by_user")
-    private User lastModifiedByUser;
+    private String lastModifiedByUser;
 }
