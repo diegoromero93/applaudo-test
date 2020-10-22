@@ -1,14 +1,11 @@
-package com.applaudostudios.demo.configuration;
+package com.applaudostudios.demo.config;
 
-import com.applaudostudios.demo.configuration.errors.ErrorInfo;
-import com.applaudostudios.demo.configuration.exceptions.ItemAlreadyCreatedException;
-import com.applaudostudios.demo.configuration.exceptions.ItemNotFoundException;
+import com.applaudostudios.demo.config.errors.ErrorInfo;
+import com.applaudostudios.demo.config.exceptions.ItemAlreadyCreatedException;
+import com.applaudostudios.demo.config.exceptions.ItemNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 

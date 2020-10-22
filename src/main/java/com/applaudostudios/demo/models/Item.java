@@ -1,12 +1,13 @@
 package com.applaudostudios.demo.models;
 
 import com.applaudostudios.demo.enums.ItemStatusEnum;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -16,11 +17,11 @@ import java.util.Date;
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Item {
+public class Item implements Serializable {
 
     @Id
+    @Column
     @EqualsAndHashCode.Include
-    @Column(name = "item_id", nullable = false)
     private Long id;
 
     @Column(name = "name", nullable = false, unique = true)
@@ -37,11 +38,11 @@ public class Item {
 
     @Column(name = "entered_date", updatable = false)
     @CreationTimestamp
-    private Date enteredDate;
+    private LocalDate enteredDate;
 
     @Column(name = "last_modified_date")
     @UpdateTimestamp
-    private Date lastModifiedDate;
+    private LocalDate lastModifiedDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "entered_by_user", nullable = false)

@@ -1,4 +1,4 @@
-package com.applaudostudios.demo.configuration.errors;
+package com.applaudostudios.demo.config.errors;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

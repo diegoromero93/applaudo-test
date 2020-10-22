@@ -1,14 +1,15 @@
-package com.applaudostudios.demo.configuration.exceptions;
+package com.applaudostudios.demo.config.exceptions;
+
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ItemNotFoundException  extends RuntimeException {
+public class ItemAlreadyCreatedException extends RuntimeException {
     private static final long serialVersionUID = 1L;
     private String message;
-    public ItemNotFoundException(String message){
+    public ItemAlreadyCreatedException(String message){
         super(message);
         this.message = message;
     }

@@ -1,7 +1,7 @@
-package com.applaudostudios.demo.service.impl;
+package com.applaudostudios.demo.services.impl;
 
-import com.applaudostudios.demo.configuration.exceptions.ItemAlreadyCreatedException;
-import com.applaudostudios.demo.configuration.exceptions.ItemNotFoundException;
+import com.applaudostudios.demo.config.exceptions.ItemAlreadyCreatedException;
+import com.applaudostudios.demo.config.exceptions.ItemNotFoundException;
 import com.applaudostudios.demo.controllers.request.ItemRequest;
 import com.applaudostudios.demo.controllers.response.ItemResponse;
 import com.applaudostudios.demo.enums.ItemStatusEnum;
@@ -9,7 +9,7 @@ import com.applaudostudios.demo.models.Item;
 import com.applaudostudios.demo.models.User;
 import com.applaudostudios.demo.repositories.ItemRepository;
 import com.applaudostudios.demo.repositories.UserRepository;
-import com.applaudostudios.demo.service.ItemService;
+import com.applaudostudios.demo.services.ItemService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
