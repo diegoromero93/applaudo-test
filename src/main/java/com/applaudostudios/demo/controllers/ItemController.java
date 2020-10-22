@@ -1,5 +1,6 @@
 package com.applaudostudios.demo.controllers;
 
+import com.applaudostudios.demo.configuration.exceptions.BadRequestException;
 import com.applaudostudios.demo.controllers.request.ItemRequest;
 import com.applaudostudios.demo.controllers.response.ItemResponse;
 import com.applaudostudios.demo.service.ItemService;
@@ -19,8 +20,9 @@ public class ItemController {
 
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ItemResponse initial(@Valid @RequestBody ItemRequest itemRequest) {
-        return itemService.saveItem(itemRequest);
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public String initial( @RequestBody ItemRequest itemRequest) {
+        return "asdfaf";
+        //return itemService.saveItem(itemRequest);
     }
 }
