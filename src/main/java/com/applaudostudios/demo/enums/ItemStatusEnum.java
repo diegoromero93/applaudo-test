@@ -1,5 +1,6 @@
 package com.applaudostudios.demo.enums;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -7,7 +8,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ItemStatusEnum {
 
+    @JsonProperty("AVAILABLE")
     AVAILABLE("AVAILABLE", "The item is available"),
+
+    @JsonProperty("SOLD")
     SOLD("SOLD","The item is sold");
 
     private String code;

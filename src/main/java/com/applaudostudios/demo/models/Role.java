@@ -19,8 +19,8 @@ import java.io.Serializable;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Role implements Serializable {
 
-    private static final long serialVersionUID = -2634563456345L;
 
+    private static final long serialVersionUID = 9001372355847313347L;
 
     @Id
     @Column

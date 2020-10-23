@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class OauthJwtEntryPoint implements AuthenticationEntryPoint, Serializable {
 
-    private static final long serialVersionUID = 918123034909381234L;
+    private static final long serialVersionUID = 8050563575927933690L;
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,

@@ -19,6 +19,8 @@ import java.util.Date;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Item implements Serializable {
 
+    private static final long serialVersionUID = 1389172829370391896L;
+
     @Id
     @Column
     @EqualsAndHashCode.Include

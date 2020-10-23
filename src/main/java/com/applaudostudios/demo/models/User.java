@@ -25,6 +25,8 @@ import static java.util.stream.Collectors.toList;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User implements UserDetails , Serializable {
 
+    private static final long serialVersionUID = -297761003239611917L;
+
     @Id
     @Column
     @EqualsAndHashCode.Include

@@ -1,13 +1,8 @@
 package com.applaudostudios.demo.controllers.response;
 
-import com.applaudostudios.demo.models.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -29,10 +24,10 @@ public class ItemResponse {
     private String status;
 
     @JsonProperty("entered_date")
-    private Date enteredDate;
+    private LocalDate enteredDate;
 
     @JsonProperty("last_modified_date")
-    private Date lastModifiedDate;
+    private LocalDate lastModifiedDate;
 
     @JsonProperty("entered_by_user")
     private String enteredByUser;

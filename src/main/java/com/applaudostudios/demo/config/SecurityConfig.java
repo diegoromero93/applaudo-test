@@ -6,6 +6,7 @@ import com.applaudostudios.demo.services.impl.OauthJwtUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -46,12 +47,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                //HTTP Basic authentication
                 .httpBasic()
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/auth").permitAll()
-                .antMatchers("/app/item/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/app/item").hasAnyRole("ADMIN")
+                .antMatchers("/app/item/**").hasAnyRole("ADMIN", "USER")
                 .and()
                 .csrf().disable()
                 .exceptionHandling()
