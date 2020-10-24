@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
@@ -15,8 +14,7 @@ public class ItemSearchByRequest {
     @NonNull
     private ItemStatusEnum itemStatus;
 
-    @NotNull
-    @Min(1)
-    private Long itemEnteredByUser;
+    @NotBlank
+    private String itemEnteredByUser;
 
 }

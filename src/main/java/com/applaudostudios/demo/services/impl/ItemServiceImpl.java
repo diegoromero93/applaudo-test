@@ -9,25 +9,25 @@ import com.applaudostudios.demo.controllers.request.UpdateItemRequest;
 import com.applaudostudios.demo.controllers.response.ItemResponse;
 import com.applaudostudios.demo.enums.ItemStatusEnum;
 import com.applaudostudios.demo.models.Item;
-import com.applaudostudios.demo.models.User;
 import com.applaudostudios.demo.repositories.ItemRepository;
 import com.applaudostudios.demo.services.ItemService;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
 
-    @Autowired
-    private ItemRepository itemRepository;
+    @NonNull
+    private final ItemRepository itemRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    @NonNull
+    private final ModelMapper modelMapper;
 
     @Override
     public ItemResponse saveItem(ItemRequest itemRequest) throws ItemAlreadyCreatedException{
@@ -36,22 +36,20 @@ public class ItemServiceImpl implements ItemService {
         if(itemRepository.existsByIdOrName(itemRequest.getId(), itemRequest.getName()))
             throw new ItemAlreadyCreatedException("Item with id: " + item.getId() + " or with name: " + item.getName() + " already exist");
 
-        item.setEnteredByUser(getCurrentUser());
         Item newItem = itemRepository.saveAndFlush(item);
         return getResponseFromModel(newItem);
     }
 
     @Override
-    public ItemResponse updateItem(UpdateItemRequest updateItemRequest, Long itemId) throws ItemNotFoundException {
+    public ItemResponse updateItem(final UpdateItemRequest updateItemRequest, final Long itemId) throws ItemNotFoundException {
 
-        Item item = itemRepository.findById(itemId)
+        final  Item item = itemRepository.findById(itemId)
                 .orElseThrow( () -> new ItemNotFoundException("Item with id: " + itemId  + " does not exist"));
 
         item.setName(updateItemRequest.getName());
         item.setBuyingPrice(updateItemRequest.getBuyingPrice());
         item.setSellingPrice(updateItemRequest.getSellingPrice());
         item.setStatus(ItemStatusEnum.getItemStatusEnum(updateItemRequest.getStatus().getCode()));
-        item.setLastModifiedByUser(getCurrentUser());
         Item updatedItem = itemRepository.saveAndFlush(item);
 
         return getResponseFromModel(updatedItem);
@@ -59,10 +57,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void deleteItem(Long itemId) throws ItemNotFoundException {
-        Item item = itemRepository.findById(itemId)
+        final  Item item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new ItemNotFoundException("Item with id: " + itemId  + " does not exist"));
         itemRepository.delete(item);
-
     }
 
     @Override
@@ -72,7 +69,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemResponse getItem(Long itemId) throws ItemNotFoundException {
-        Item item = itemRepository.findById(itemId)
+        final Item item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new ItemNotFoundException("Item with id: " + itemId  + " does not exist"));
         return getResponseFromModel(item);
     }
@@ -80,7 +77,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Page<ItemResponse> getAllItemsByFilter(ItemSearchByRequest itemSearchByRequest) {
         String status = itemSearchByRequest.getItemStatus() != null ? itemSearchByRequest.getItemStatus().getCode() : null;
-        Long enteredBy = itemSearchByRequest.getItemEnteredByUser() != null ? itemSearchByRequest.getItemEnteredByUser() : null;
+        String enteredBy = itemSearchByRequest.getItemEnteredByUser() != null ? itemSearchByRequest.getItemEnteredByUser() : null;
 
         Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE);
         Page<Item> pagedResult = itemRepository.findItemsByRequest(pageable, status, enteredBy);
@@ -114,25 +111,16 @@ public class ItemServiceImpl implements ItemService {
                 .collect(Collectors.toList()), pageable, pagedResult.getTotalElements());
     }
 
-
-    private User getCurrentUser(){
-        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    }
     private Item getModelFromRequest(ItemRequest itemRequest){
         return modelMapper.map(itemRequest, Item.class);
     }
 
     private ItemResponse getResponseFromModel(Item item){
-        return modelMapper.map(item, ItemResponse.class);
-        /*return ItemResponse.builder()
-                .id(item.getId()).name(item.getName())
-                .buyingPrice(item.getBuyingPrice())
-                .sellingPrice(item.getSellingPrice())
-                .status(item.getStatus().getCode())
-                .enteredDate(item.getEnteredDate())
-                .lastModifiedDate(item.getLastModifiedDate())
-                .enteredByUser(item.getEnteredByUser().getUsername())
-                .lastModifiedByUser(item.getLastModifiedByUser() != null ? item.getLastModifiedByUser().getUsername() : null)
-                .build();*/
+        final ItemResponse response = modelMapper.map(item, ItemResponse.class);
+        response.setEnteredByUser(item.getAudit().getEnteredByUser());
+        response.setEnteredDate(item.getAudit().getEnteredDate());
+        response.setLastModifiedByUser(item.getAudit().getLastModifiedByUser());
+        response.setLastModifiedDate(item.getAudit().getLastModifiedDate());
+        return response;
     }
 }

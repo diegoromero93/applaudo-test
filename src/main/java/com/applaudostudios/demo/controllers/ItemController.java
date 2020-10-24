@@ -8,7 +8,8 @@ import com.applaudostudios.demo.controllers.request.PaginationRequest;
 import com.applaudostudios.demo.controllers.request.UpdateItemRequest;
 import com.applaudostudios.demo.controllers.response.ItemResponse;
 import com.applaudostudios.demo.services.ItemService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 
@@ -19,10 +20,11 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/app/item")
+@RequiredArgsConstructor
 public class ItemController {
 
-    @Autowired
-    private ItemService itemService;
+    @NonNull
+    private final ItemService itemService;
 
     /**
      * Method to create an Item
@@ -97,7 +99,6 @@ public class ItemController {
      * @return
      */
     @GetMapping(params = { "itemStatus" , "itemEnteredByUser"})
-    @ResponseStatus(HttpStatus.OK)
     public Page<ItemResponse> getItemSearchByAttributes(@Valid ItemSearchByRequest itemSearchByRequest) {
         return itemService.getAllItemsByFilter(itemSearchByRequest);
     }
@@ -108,7 +109,6 @@ public class ItemController {
      * @return
      */
     @GetMapping(params = { "pageSize" , "page", "sortBy"})
-    @ResponseStatus(HttpStatus.OK)
     public Page<ItemResponse> getItemSearchByAttributes(@Valid PaginationRequest paginationRequest) {
         return itemService.getAllItemsPaginated(paginationRequest);
     }

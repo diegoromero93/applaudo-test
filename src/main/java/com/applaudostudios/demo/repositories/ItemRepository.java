@@ -15,6 +15,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
 
     @Query(value = "SELECT i FROM Item i WHERE (:status is null or i.status = :status) " +
-            " and (:enteredByUserId is null or i.enteredByUser.id = :enteredByUserId) ")
-    Page<Item> findItemsByRequest(Pageable page, @Param("status") String status, @Param("enteredByUserId") Long enteredByUserId );
+            " and (:enteredByUserId is null or i.audit.enteredByUser = :enteredByUser) ")
+    Page<Item> findItemsByRequest(Pageable page, @Param("status") String status, @Param("enteredByUser") String enteredByUser );
 }

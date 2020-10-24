@@ -5,6 +5,8 @@ import com.applaudostudios.demo.models.Role;
 import com.applaudostudios.demo.models.User;
 import com.applaudostudios.demo.repositories.RoleRepository;
 import com.applaudostudios.demo.repositories.UserRepository;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -16,16 +18,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class InitDatabase implements ApplicationRunner {
 
-    @Autowired
-    UserRepository userRepository;
+    @NonNull
+    private final UserRepository userRepository;
 
-    @Autowired
-    RoleRepository roleRepository;
+    @NonNull
+    private final RoleRepository roleRepository;
 
     @Value("${spring.jpa.hibernate.populate:false}")
-    boolean populate;
+    private boolean populate;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {

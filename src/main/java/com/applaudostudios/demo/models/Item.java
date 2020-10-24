@@ -1,6 +1,8 @@
 package com.applaudostudios.demo.models;
 
 import com.applaudostudios.demo.enums.ItemStatusEnum;
+import com.applaudostudios.demo.repositories.listener.AuditListener;
+import com.applaudostudios.demo.repositories.listener.Auditable;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -11,12 +13,13 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "items")
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Item implements Serializable {
+@EntityListeners(AuditListener.class)
+public class Item implements Serializable, Auditable {
 
     private static final long serialVersionUID = 1389172829370391896L;
 
@@ -37,21 +40,8 @@ public class Item implements Serializable {
     @Column(name = "status", nullable = false)
     private String status;
 
-    @Column(name = "entered_date", updatable = false)
-    @CreationTimestamp
-    private LocalDateTime enteredDate;
-
-    @Column(name = "last_modified_date")
-    @UpdateTimestamp
-    private LocalDateTime lastModifiedDate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "entered_by_user", nullable = false)
-    private User enteredByUser;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "last_modified_by_user")
-    private User lastModifiedByUser;
+    @Embedded
+    private Audit audit;
 
 
     public ItemStatusEnum getStatus(){

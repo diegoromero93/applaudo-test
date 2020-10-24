@@ -16,7 +16,7 @@ public class PaginationRequest {
     private Integer pageSize;
 
     @NonNull
-    @Min(1)
+    @Min(0)
     private Integer page;
 
     @NonNull
