@@ -1,6 +1,7 @@
 package com.applaudostudios.demo.controllers;
 
 import com.applaudostudios.demo.config.exceptions.ItemAlreadyCreatedException;
+import com.applaudostudios.demo.config.exceptions.ItemDeleteException;
 import com.applaudostudios.demo.config.exceptions.ItemNotFoundException;
 import com.applaudostudios.demo.controllers.request.ItemSearchByRequest;
 import com.applaudostudios.demo.controllers.request.ItemRequest;
@@ -58,7 +59,7 @@ public class ItemController {
      */
     @DeleteMapping("/{itemId}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteOrFail(@PathVariable Long itemId) throws ItemNotFoundException {
+    public void deleteOrFail(@PathVariable Long itemId) throws ItemDeleteException {
         itemService.deleteItem(itemId);
     }
 

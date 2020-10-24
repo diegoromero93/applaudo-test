@@ -1,8 +1,7 @@
-package com.applaudostudios.demo.models;
+package com.applaudostudios.demo.repositories.models;
 
+import com.applaudostudios.demo.repositories.models.listener.Auditable;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +22,7 @@ import static java.util.stream.Collectors.toList;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class User implements UserDetails , Serializable {
+public class User implements UserDetails , Serializable, Auditable {
 
     private static final long serialVersionUID = -297761003239611917L;
 
@@ -48,13 +47,8 @@ public class User implements UserDetails , Serializable {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "entered_date")
-    @CreationTimestamp
-    private LocalDateTime enteredDate;
-
-    @Column(name = "last_modified_date")
-    @UpdateTimestamp
-    private LocalDateTime lastModifiedDate;
+    @Embedded
+    private Audit audit;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Role> roles = new ArrayList<>();

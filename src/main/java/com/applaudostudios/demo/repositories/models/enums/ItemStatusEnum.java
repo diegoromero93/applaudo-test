@@ -1,4 +1,4 @@
-package com.applaudostudios.demo.enums;
+package com.applaudostudios.demo.repositories.models.enums;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

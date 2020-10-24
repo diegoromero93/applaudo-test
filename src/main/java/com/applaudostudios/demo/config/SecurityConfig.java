@@ -3,6 +3,8 @@ package com.applaudostudios.demo.config;
 import com.applaudostudios.demo.config.security.OauthJwtEntryPoint;
 import com.applaudostudios.demo.config.security.OauthJwtFilter;
 import com.applaudostudios.demo.services.impl.OauthJwtUserService;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,16 +24,17 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private DataSource dataSource;
+    @NonNull
+    private final DataSource dataSource;
 
-    @Autowired
-    private OauthJwtEntryPoint authorizedEntryPoint;
+    @NonNull
+    private final OauthJwtEntryPoint authorizedEntryPoint;
 
-    @Autowired
-    private OauthJwtUserService oauthJwtUserService;
+    @NonNull
+    private final OauthJwtUserService oauthJwtUserService;
 
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {

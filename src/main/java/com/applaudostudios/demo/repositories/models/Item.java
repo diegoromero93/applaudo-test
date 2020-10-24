@@ -1,15 +1,12 @@
-package com.applaudostudios.demo.models;
+package com.applaudostudios.demo.repositories.models;
 
-import com.applaudostudios.demo.enums.ItemStatusEnum;
-import com.applaudostudios.demo.repositories.listener.AuditListener;
-import com.applaudostudios.demo.repositories.listener.Auditable;
+import com.applaudostudios.demo.repositories.models.enums.ItemStatusEnum;
+import com.applaudostudios.demo.repositories.models.listener.AuditListener;
+import com.applaudostudios.demo.repositories.models.listener.Auditable;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "items")

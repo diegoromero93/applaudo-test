@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 
 @SpringBootApplication
-@EntityScan(basePackages = { "com.applaudostudios.demo.models" })
+@EntityScan(basePackages = { "com.applaudostudios.demo.repositories.models" })
 @EnableJpaAuditing
 public class DemoApplication {
 

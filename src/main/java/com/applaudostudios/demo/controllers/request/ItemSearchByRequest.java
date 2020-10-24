@@ -1,6 +1,6 @@
 package com.applaudostudios.demo.controllers.request;
 
-import com.applaudostudios.demo.enums.ItemStatusEnum;
+import com.applaudostudios.demo.repositories.models.enums.ItemStatusEnum;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;

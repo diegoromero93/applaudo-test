@@ -19,7 +19,6 @@ public class PaginationRequest {
     @Min(0)
     private Integer page;
 
-    @NonNull
     @NotBlank
     private String sortBy;
 }

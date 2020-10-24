@@ -1,6 +1,6 @@
 package com.applaudostudios.demo.repositories;
 
-import com.applaudostudios.demo.models.Item;
+import com.applaudostudios.demo.repositories.models.Item;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +15,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
 
     @Query(value = "SELECT i FROM Item i WHERE (:status is null or i.status = :status) " +
-            " and (:enteredByUserId is null or i.audit.enteredByUser = :enteredByUser) ")
+            " and (:enteredByUser is null or i.audit.enteredByUser = :enteredByUser) ")
     Page<Item> findItemsByRequest(Pageable page, @Param("status") String status, @Param("enteredByUser") String enteredByUser );
 }

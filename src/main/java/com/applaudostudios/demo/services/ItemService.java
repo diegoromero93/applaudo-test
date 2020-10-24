@@ -1,6 +1,7 @@
 package com.applaudostudios.demo.services;
 
 import com.applaudostudios.demo.config.exceptions.ItemAlreadyCreatedException;
+import com.applaudostudios.demo.config.exceptions.ItemDeleteException;
 import com.applaudostudios.demo.config.exceptions.ItemNotFoundException;
 import com.applaudostudios.demo.controllers.request.ItemSearchByRequest;
 import com.applaudostudios.demo.controllers.request.ItemRequest;
@@ -12,7 +13,7 @@ import org.springframework.data.domain.Page;
 public interface ItemService {
     ItemResponse saveItem(ItemRequest itemRequest) throws ItemAlreadyCreatedException;
     ItemResponse updateItem(UpdateItemRequest updateItemRequest, Long itemId) throws ItemNotFoundException;
-    void deleteItem(Long itemId)  throws ItemNotFoundException;
+    void deleteItem(Long itemId)  throws ItemDeleteException;
     void deleteAll();
     ItemResponse getItem(Long itemId) throws ItemNotFoundException;
     Page<ItemResponse> getAllItemsByFilter(ItemSearchByRequest itemSearchByRequest);

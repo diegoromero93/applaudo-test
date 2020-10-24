@@ -1,6 +1,6 @@
 package com.applaudostudios.demo.services.impl;
 
-import com.applaudostudios.demo.models.User;
+import com.applaudostudios.demo.repositories.models.User;
 import com.applaudostudios.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,7 +1,7 @@
-package com.applaudostudios.demo.repositories.listener;
+package com.applaudostudios.demo.repositories.models.listener;
 
-import com.applaudostudios.demo.models.Audit;
-import com.applaudostudios.demo.models.User;
+import com.applaudostudios.demo.repositories.models.Audit;
+import com.applaudostudios.demo.repositories.models.User;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.PrePersist;

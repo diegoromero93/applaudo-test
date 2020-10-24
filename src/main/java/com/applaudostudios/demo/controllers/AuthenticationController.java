@@ -4,6 +4,8 @@ package com.applaudostudios.demo.controllers;
 import com.applaudostudios.demo.config.security.OauthJwtTokenProvider;
 import com.applaudostudios.demo.controllers.request.LoginRequest;
 import com.applaudostudios.demo.controllers.response.JwtTokenResponse;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,13 +21,14 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthenticationController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    @NonNull
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private OauthJwtTokenProvider tokenProvider;
+    @NonNull
+    private final OauthJwtTokenProvider tokenProvider;
 
     /**
      * Method to obtain jwt token

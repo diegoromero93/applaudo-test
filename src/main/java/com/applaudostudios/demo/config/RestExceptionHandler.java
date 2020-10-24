@@ -2,6 +2,7 @@ package com.applaudostudios.demo.config;
 
 import com.applaudostudios.demo.config.errors.ErrorInfo;
 import com.applaudostudios.demo.config.exceptions.ItemAlreadyCreatedException;
+import com.applaudostudios.demo.config.exceptions.ItemDeleteException;
 import com.applaudostudios.demo.config.exceptions.ItemNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -37,4 +38,12 @@ public class RestExceptionHandler {
         log.error("Exception : ", e);
         return error(e, HttpStatus.NOT_FOUND, request);
     }
+
+    @ExceptionHandler(ItemDeleteException.class)
+    public ResponseEntity<ErrorInfo> handleItemDeleteException(HttpServletRequest request, final ItemDeleteException e) {
+        log.error("Exception : ", e);
+        return error(e, HttpStatus.BAD_REQUEST, request);
+    }
+
+
 }

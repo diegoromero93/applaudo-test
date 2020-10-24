@@ -1,7 +1,7 @@
-package com.applaudostudios.demo.models;
+package com.applaudostudios.demo.repositories.models;
 
 
-import com.applaudostudios.demo.enums.RoleEnum;
+import com.applaudostudios.demo.repositories.models.enums.RoleEnum;
 import lombok.*;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;

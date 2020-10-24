@@ -1,14 +1,15 @@
 package com.applaudostudios.demo.services.impl;
 
 import com.applaudostudios.demo.config.exceptions.ItemAlreadyCreatedException;
+import com.applaudostudios.demo.config.exceptions.ItemDeleteException;
 import com.applaudostudios.demo.config.exceptions.ItemNotFoundException;
 import com.applaudostudios.demo.controllers.request.ItemSearchByRequest;
 import com.applaudostudios.demo.controllers.request.ItemRequest;
 import com.applaudostudios.demo.controllers.request.PaginationRequest;
 import com.applaudostudios.demo.controllers.request.UpdateItemRequest;
 import com.applaudostudios.demo.controllers.response.ItemResponse;
-import com.applaudostudios.demo.enums.ItemStatusEnum;
-import com.applaudostudios.demo.models.Item;
+import com.applaudostudios.demo.repositories.models.enums.ItemStatusEnum;
+import com.applaudostudios.demo.repositories.models.Item;
 import com.applaudostudios.demo.repositories.ItemRepository;
 import com.applaudostudios.demo.services.ItemService;
 import lombok.NonNull;
@@ -56,9 +57,9 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void deleteItem(Long itemId) throws ItemNotFoundException {
+    public void deleteItem(Long itemId) throws ItemDeleteException {
         final  Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new ItemNotFoundException("Item with id: " + itemId  + " does not exist"));
+                .orElseThrow(() -> new ItemDeleteException("Item with id: " + itemId  + " does not exist"));
         itemRepository.delete(item);
     }
 

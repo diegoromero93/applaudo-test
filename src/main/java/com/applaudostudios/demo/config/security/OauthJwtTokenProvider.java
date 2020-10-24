@@ -1,6 +1,6 @@
 package com.applaudostudios.demo.config.security;
 
-import com.applaudostudios.demo.models.User;
+import com.applaudostudios.demo.repositories.models.User;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
