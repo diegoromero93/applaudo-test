@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -50,11 +50,11 @@ public class User implements UserDetails , Serializable {
 
     @Column(name = "entered_date")
     @CreationTimestamp
-    private LocalDate enteredDate;
+    private LocalDateTime enteredDate;
 
     @Column(name = "last_modified_date")
     @UpdateTimestamp
-    private LocalDate lastModifiedDate;
+    private LocalDateTime lastModifiedDate;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Role> roles = new ArrayList<>();
@@ -90,6 +90,6 @@ public class User implements UserDetails , Serializable {
 
     @Override
     public String toString() {
-        return "user: " +  this.getUsername();
+        return this.getUsername();
     }
 }

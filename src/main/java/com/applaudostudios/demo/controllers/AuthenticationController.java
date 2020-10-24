@@ -28,7 +28,7 @@ public class AuthenticationController {
     private OauthJwtTokenProvider tokenProvider;
 
     /**
-     * Metodo para obtener el token por jwt
+     * Method to obtain jwt token
      *
      * @param loginRequest
      * @return ResponseEntity<?>

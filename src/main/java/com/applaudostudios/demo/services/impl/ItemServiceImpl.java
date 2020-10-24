@@ -5,6 +5,7 @@ import com.applaudostudios.demo.config.exceptions.ItemNotFoundException;
 import com.applaudostudios.demo.controllers.request.ItemSearchByRequest;
 import com.applaudostudios.demo.controllers.request.ItemRequest;
 import com.applaudostudios.demo.controllers.request.PaginationRequest;
+import com.applaudostudios.demo.controllers.request.UpdateItemRequest;
 import com.applaudostudios.demo.controllers.response.ItemResponse;
 import com.applaudostudios.demo.enums.ItemStatusEnum;
 import com.applaudostudios.demo.models.Item;
@@ -37,23 +38,23 @@ public class ItemServiceImpl implements ItemService {
 
         item.setEnteredByUser(getCurrentUser());
         Item newItem = itemRepository.saveAndFlush(item);
-        return getRequestFromModel(newItem);
+        return getResponseFromModel(newItem);
     }
 
     @Override
-    public ItemResponse updateItem(ItemRequest itemRequest, Long itemId) throws ItemNotFoundException {
+    public ItemResponse updateItem(UpdateItemRequest updateItemRequest, Long itemId) throws ItemNotFoundException {
 
         Item item = itemRepository.findById(itemId)
                 .orElseThrow( () -> new ItemNotFoundException("Item with id: " + itemId  + " does not exist"));
 
-        item.setName(itemRequest.getName());
-        item.setBuyingPrice(itemRequest.getBuyingPrice());
-        item.setSellingPrice(itemRequest.getSellingPrice());
-        item.setStatus(ItemStatusEnum.getItemStatusEnum(itemRequest.getStatus()));
+        item.setName(updateItemRequest.getName());
+        item.setBuyingPrice(updateItemRequest.getBuyingPrice());
+        item.setSellingPrice(updateItemRequest.getSellingPrice());
+        item.setStatus(ItemStatusEnum.getItemStatusEnum(updateItemRequest.getStatus().getCode()));
         item.setLastModifiedByUser(getCurrentUser());
         Item updatedItem = itemRepository.saveAndFlush(item);
 
-        return getRequestFromModel(updatedItem);
+        return getResponseFromModel(updatedItem);
     }
 
     @Override
@@ -73,7 +74,7 @@ public class ItemServiceImpl implements ItemService {
     public ItemResponse getItem(Long itemId) throws ItemNotFoundException {
         Item item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new ItemNotFoundException("Item with id: " + itemId  + " does not exist"));
-        return getRequestFromModel(item);
+        return getResponseFromModel(item);
     }
 
     @Override
@@ -117,11 +118,21 @@ public class ItemServiceImpl implements ItemService {
     private User getCurrentUser(){
         return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
-    private Item getModelFromRequest(ItemRequest wordRequest){
-        return modelMapper.map(wordRequest, Item.class);
+    private Item getModelFromRequest(ItemRequest itemRequest){
+        return modelMapper.map(itemRequest, Item.class);
     }
 
-    private ItemResponse getRequestFromModel(Item item){
+    private ItemResponse getResponseFromModel(Item item){
         return modelMapper.map(item, ItemResponse.class);
+        /*return ItemResponse.builder()
+                .id(item.getId()).name(item.getName())
+                .buyingPrice(item.getBuyingPrice())
+                .sellingPrice(item.getSellingPrice())
+                .status(item.getStatus().getCode())
+                .enteredDate(item.getEnteredDate())
+                .lastModifiedDate(item.getLastModifiedDate())
+                .enteredByUser(item.getEnteredByUser().getUsername())
+                .lastModifiedByUser(item.getLastModifiedByUser() != null ? item.getLastModifiedByUser().getUsername() : null)
+                .build();*/
     }
 }

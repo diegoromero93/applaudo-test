@@ -7,8 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "items")
@@ -40,11 +39,11 @@ public class Item implements Serializable {
 
     @Column(name = "entered_date", updatable = false)
     @CreationTimestamp
-    private LocalDate enteredDate;
+    private LocalDateTime enteredDate;
 
     @Column(name = "last_modified_date")
     @UpdateTimestamp
-    private LocalDate lastModifiedDate;
+    private LocalDateTime lastModifiedDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "entered_by_user", nullable = false)

@@ -1,8 +1,7 @@
 package com.applaudostudios.demo.controllers.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -15,23 +14,17 @@ public class ItemResponse {
 
     String name;
 
-    @JsonProperty("buying_price")
     private double buyingPrice;
 
-    @JsonProperty("selling_price")
     private double sellingPrice;
 
     private String status;
 
-    @JsonProperty("entered_date")
-    private LocalDate enteredDate;
+    private LocalDateTime enteredDate;
 
-    @JsonProperty("last_modified_date")
-    private LocalDate lastModifiedDate;
+    private LocalDateTime lastModifiedDate;
 
-    @JsonProperty("entered_by_user")
     private String enteredByUser;
 
-    @JsonProperty("last_modified_by_user")
     private String lastModifiedByUser;
 }

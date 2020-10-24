@@ -1,8 +1,8 @@
 package com.applaudostudios.demo.controllers.request;
 
-
 import com.applaudostudios.demo.enums.ItemStatusEnum;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
@@ -11,11 +11,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-public class ItemRequest {
-
-
-    @NotNull(message = "Id is required")
-    private Long id;
+public class UpdateItemRequest {
 
     @NotNull
     @NotBlank
