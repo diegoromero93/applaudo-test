@@ -7,6 +7,7 @@ import com.applaudostudios.demo.config.exceptions.ItemNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -45,5 +46,10 @@ public class RestExceptionHandler {
         return error(e, HttpStatus.BAD_REQUEST, request);
     }
 
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorInfo> handleBadCredentialsException(HttpServletRequest request, final BadCredentialsException e) {
+        log.error("Exception : ", e);
+        return error(e, HttpStatus.UNAUTHORIZED, request);
+    }
 
 }
