@@ -36,7 +36,7 @@ public class ItemController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ItemResponse createOrFail(@Valid @RequestBody ItemRequest itemRequest) throws ItemAlreadyCreatedException {
-        return itemService.saveItem(itemRequest);
+        return itemService.createItem(itemRequest);
     }
 
     /**
@@ -47,7 +47,6 @@ public class ItemController {
      * @throws ItemNotFoundException
      */
     @PutMapping("/{itemId}")
-    @ResponseStatus(HttpStatus.OK)
     public ItemResponse updateOrFail(@Valid @RequestBody UpdateItemRequest updateItemRequest, @PathVariable Long itemId) throws ItemNotFoundException {
         return itemService.updateItem(updateItemRequest, itemId);
     }
@@ -58,7 +57,6 @@ public class ItemController {
      * @throws ItemNotFoundException
      */
     @DeleteMapping("/{itemId}")
-    @ResponseStatus(HttpStatus.OK)
     public void deleteOrFail(@PathVariable Long itemId) throws ItemDeleteException {
         itemService.deleteItem(itemId);
     }
@@ -67,7 +65,6 @@ public class ItemController {
      * Method to delete all Items
      */
     @DeleteMapping
-    @ResponseStatus(HttpStatus.OK)
     public void deleteAll() {
         itemService.deleteAll();
     }
@@ -79,7 +76,6 @@ public class ItemController {
      * @throws ItemNotFoundException
      */
     @GetMapping("/{itemId}")
-    @ResponseStatus(HttpStatus.OK)
     public ItemResponse getItem(@PathVariable Long itemId) throws ItemNotFoundException {
         return itemService.getItem(itemId);
     }
@@ -89,7 +85,6 @@ public class ItemController {
      * @return
      */
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
     public Page<ItemResponse> getItem() {
         return itemService.getAllItems();
     }

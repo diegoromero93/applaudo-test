@@ -31,7 +31,7 @@ public class ItemServiceImpl implements ItemService {
     private final ModelMapper modelMapper;
 
     @Override
-    public ItemResponse saveItem(ItemRequest itemRequest) throws ItemAlreadyCreatedException{
+    public ItemResponse createItem(ItemRequest itemRequest) throws ItemAlreadyCreatedException{
         Item item = getModelFromRequest(itemRequest);
 
         if(itemRepository.existsByIdOrName(itemRequest.getId(), itemRequest.getName()))

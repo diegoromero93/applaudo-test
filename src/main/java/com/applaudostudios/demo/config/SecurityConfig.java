@@ -47,6 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     // Secure the endpoins with HTTP Basic authentication
+    //You need to secure the following provided REST endpoints:
+    //POST request to /app/item , DELETE request to /app/item/{itemId} , DELETE request to /app/item
+    //this operation can only be authorized to a user having the role of ​ADMIN​.
+    // POST request to /app/item -> this operation can be authorized to both ADMIN and USER roles
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -55,7 +59,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/auth").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/app/item").hasAnyRole("ADMIN")
-                .antMatchers("/app/item/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers(HttpMethod.DELETE, "/app/item/*").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/app/item").hasAnyRole("ADMIN",  "USER")
+                .antMatchers(HttpMethod.PUT, "/app/item").hasAnyRole("ADMIN",  "USER")
                 .and()
                 .csrf().disable()
                 .exceptionHandling()

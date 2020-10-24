@@ -1,7 +1,5 @@
 package com.applaudostudios.demo.config.security;
 
-
-
 import java.io.IOException;
 import java.io.Serializable;
 
