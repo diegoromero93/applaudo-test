@@ -53,3 +53,22 @@ spring.jpa.hibernate.ddl-auto=create
 ```bash
 mvn spring-boot:run
 ```
+ ## Postman API Collection
+ 
+ To test please import the following collection
+
+[Click here](https://www.getpostman.com/collections/110832851f1bb9301b95)
+
+Keep in mind the following information
+
+| Request       | HTTP METHOD  | JWT Token on header required  | ROLE |
+|----------------|:---------:|:-------:|:-------:|
+| /api/auth    |  POST    | no | no role |
+| /app/item   |  POST | yes  | USER / ADMIN |
+| /app/item/{itemId}   |  PUT | yes  | USER / ADMIN |
+| /app/item/{itemId}  |  DELETE | yes  | ADMIN |
+| /app/item  |  DELETE | yes  | ADMIN |
+| /app/item  |  GET | no  | no role |
+| /app/item/{itemId}  |  GET | no  | no role |
+| /app/item?itemStatus={status}&itemEnteredByUser={enteredBy}  |  GET | no  | no role |
+| /app/item?pageSize={pageSize}&page={page}&sortBy={sortByField}  |  GET | no  | no role |
